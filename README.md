@@ -6,7 +6,8 @@ Welcome to the configuration backup for my home server setup. This repository ho
 
 ## 🦎 Memos (v0.25+)
 
-My custom "Dark Glass" modification for [Memos](https://usememos.com/).
+My custom "Dark Glass" modification for [Memos](https://usememos.com/).<img width="1756" height="929" alt="screenshot" src="https://github.com/user-attachments/assets/597857cb-d3ed-4f10-8fa6-e42c032612e6" />
+
 
 ### 1. Dark Glass Theme (`/memos/theme.css`)
 A complete visual overhaul that replaces the standard flat UI with a translucent, frosted glass aesthetic.
