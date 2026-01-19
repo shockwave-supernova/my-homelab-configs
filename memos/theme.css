@@ -1,0 +1,176 @@
+/* * === MEMOS V0.25+ CUSTOM THEME: "DARK GLASS" ===
+ * Description: A comprehensive dark glassmorphism theme for Memos.
+ * Features: Fixed background, translucent cards, wide layout, and high-contrast menus.
+ * Tested on: Memos v0.25.x
+ */
+
+/* === SECTION 1: FIXED BACKGROUND LAYER === */
+/* * We use a pseudo-element (::before) instead of applying the background directly to the body.
+ * This ensures the background remains fixed and doesn't scroll with the content.
+ * It also allows us to apply a separate overlay/dimming effect without affecting the text.
+ */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  z-index: -1; /* Places the background BEHIND all content */
+  
+  /* ⚠️ IMPORTANT: REPLACE THE URL BELOW WITH YOUR OWN IMAGE LINK! */
+  /* Local path example: '/file/attachments/your-file-id/image.jpg' */
+  /* External URL example: 'https://example.com/wallpaper.jpg' */
+  background-image: url('CHANGE_THIS_TO_YOUR_IMAGE_URL.jpg');
+  
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* Dimming overlay: Adjust alpha (0.4) to make it darker or lighter */
+  background-color: rgba(0, 0, 0, 0.4); 
+  background-blend-mode: overlay;
+}
+
+/* === SECTION 2: GLOBAL TRANSPARENCY RESET === */
+/* * Memos uses Tailwind CSS, which applies opaque background colors by default.
+ * We must forcibly override these to 'transparent' to let our background image show through.
+ * Targeting: Main layout, background utility classes, and sidebar containers.
+ */
+html, 
+body, 
+main, 
+.bg-background, 
+.min-h-full, 
+.w-full {
+  background-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* === SECTION 3: WIDE LAYOUT (THICC MODE) === */
+/* * The default Memos layout is quite narrow (max-w-2xl).
+ * This block forces the timeline to take up 95% of the screen width (up to 1200px).
+ * Great for modern wide monitors.
+ */
+.max-w-2xl, 
+.w-full.max-w-2xl {
+  max-width: 1200px !important;
+  width: 95% !important;
+}
+
+/* === SECTION 4: GLASSMORPHISM CARDS (NOTES) === */
+/* * Styling for the individual note cards.
+ * Uses a semi-transparent dark background with a backdrop-blur effect.
+ */
+.bg-card {
+  /* Dark tint (60% opacity) */
+  background-color: rgba(20, 20, 20, 0.6) !important;
+  
+  /* The "Glass" effect (blurs the wallpaper behind the note) */
+  backdrop-filter: blur(25px) !important;
+  -webkit-backdrop-filter: blur(25px) !important;
+  
+  /* Border and Shadow for better separation */
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* === SECTION 5: SIDEBAR & NAVIGATION === */
+/* * Styling for the left sidebar (menu, tags, usage bars).
+ * Slightly darker than note cards for visual hierarchy.
+ */
+aside, 
+.bg-sidebar {
+  background-color: rgba(10, 10, 10, 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* === SECTION 6: TYPOGRAPHY ENHANCEMENTS === */
+/* * Ensures text remains readable regardless of the background image brightness.
+ * Adds a subtle text shadow to all main text elements.
+ */
+.text-card-foreground, p, span, div, h1, h2, h3 {
+  color: #e0e0e0 !important; /* Off-white text */
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8); /* Black shadow */
+}
+
+/* Link styling */
+a { 
+  color: #4facfe !important; 
+  text-decoration: none; 
+}
+
+/* === SECTION 7: SETTINGS PAGE FIX === */
+/* * The Settings page uses different containers than the main timeline.
+ * We need to explicitly target them to prevent them from becoming invisible or unreadable.
+ */
+.max-w-4xl, 
+.max-w-5xl, 
+div[class*="grid-cols-"], 
+div.w-full.border.rounded-lg, 
+div.w-full.bg-surface {       
+  background-color: rgba(20, 20, 20, 0.8) !important; /* More opaque for settings */
+  backdrop-filter: blur(35px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 16px !important;
+}
+
+/* Hover effect for buttons in the Settings sidebar */
+a.w-full.justify-start:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* === SECTION 8: CRITICAL UI FIXES (DROPDOWNS & MENUS) === */
+/* * "THE NUCLEAR OPTION" for Popups.
+ * Memos v0.25 uses complex nesting for menus (Radix UI). 
+ * Making them transparent often breaks visibility or causes stacking issues.
+ * Solution: Force all dropdowns, dialogs, and selects to be solid black/opaque.
+ */
+
+.bg-popover, 
+.bg-muted,
+div[data-radix-popper-content-wrapper] > div,
+div[role="listbox"],
+ul[role="listbox"],
+div[role="menu"],
+div[role="dialog"],
+select, 
+option {
+  background-color: #0f0f0f !important; /* Deep black */
+  background: #0f0f0f !important;
+  color: white !important;
+  border: 1px solid #555 !important;
+  opacity: 1 !important; 
+  z-index: 99999 !important; /* Ensure it floats above everything */
+  box-shadow: 0 0 20px rgba(0,0,0,1) !important;
+  backdrop-filter: none !important; /* Disable blur to prevent rendering bugs */
+}
+
+/* Menu items styling */
+div[role="option"], 
+div[role="menuitem"], 
+li {
+    background-color: transparent !important;
+    color: #eeeeee !important;
+    cursor: pointer;
+}
+
+/* Hover state for menu items */
+div[role="option"]:hover, 
+div[role="menuitem"]:hover, 
+li:hover {
+    background-color: #333333 !important;
+}
+
+/* === SECTION 9: INPUT FIELDS === */
+/* Darken input fields and textareas for better contrast */
+input, 
+textarea, 
+.bg-secondary {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  color: white !important;
+}
