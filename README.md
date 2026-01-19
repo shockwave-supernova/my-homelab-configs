@@ -34,6 +34,8 @@ A lightweight JavaScript snippet for the **Custom Script** section.
 2.  Paste it into **Settings > System > Custom Script**.
 3.  Save and refresh the page.
 
+## 🎨 Credits
+* Wallpaper: Found on the web (Artist unknown). If you are the creator, please let me know so I can provide proper credit!
 ---
 
 ## 🚀 Future Plans
