@@ -1,176 +1,244 @@
-/* * === MEMOS V0.25+ CUSTOM THEME: "DARK GLASS" ===
- * Description: A comprehensive dark glassmorphism theme for Memos.
- * Features: Fixed background, translucent cards, wide layout, and high-contrast menus.
- * Tested on: Memos v0.25.x
+/*
+ * ======================================================================================
+ * CUSTOM MEMOS THEME: "DARK GLASS"
+ * Author: [Your Name/Username]
+ * Description: A comprehensive visual overhaul for Memos (v0.25+) focusing on 
+ * glassmorphism, readability, and a unified dark aesthetic.
+ * ======================================================================================
  */
 
-/* === SECTION 1: FIXED BACKGROUND LAYER === */
-/* * We use a pseudo-element (::before) instead of applying the background directly to the body.
- * This ensures the background remains fixed and doesn't scroll with the content.
- * It also allows us to apply a separate overlay/dimming effect without affecting the text.
- */
+/* === 1. GLOBAL BACKGROUND CONFIGURATION === */
 body::before {
   content: "";
   position: fixed;
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%;
-  z-index: -1; /* Places the background BEHIND all content */
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -1; 
   
-  /* ⚠️ IMPORTANT: REPLACE THE URL BELOW WITH YOUR OWN IMAGE LINK! */
-  /* Local path example: '/file/attachments/your-file-id/image.jpg' */
-  /* External URL example: 'https://example.com/wallpaper.jpg' */
-  background-image: url('CHANGE_THIS_TO_YOUR_IMAGE_URL.jpg');
+  /* * Background Image Source.
+   * Note: Using a direct link to the raw image file from the repository ensures 
+   * consistent loading across different devices and networks.
+   */
+  background-image: url('PAST_YOUR_COPIED_IMAGE_URL_HERE');
   
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   
-  /* Dimming overlay: Adjust alpha (0.4) to make it darker or lighter */
+  /* Overlay to improve text contrast against complex backgrounds */
   background-color: rgba(0, 0, 0, 0.4); 
   background-blend-mode: overlay;
 }
 
-/* === SECTION 2: GLOBAL TRANSPARENCY RESET === */
-/* * Memos uses Tailwind CSS, which applies opaque background colors by default.
- * We must forcibly override these to 'transparent' to let our background image show through.
- * Targeting: Main layout, background utility classes, and sidebar containers.
- */
-html, 
-body, 
-main, 
-.bg-background, 
-.min-h-full, 
-.w-full {
+/* === 2. RESET & TRANSPARENCY === */
+/* Remove default solid backgrounds to allow the underlying image to show through */
+html, body, main, .bg-background, .min-h-full, .w-full {
   background-color: transparent !important;
   background: transparent !important;
   box-shadow: none !important;
 }
 
-/* === SECTION 3: WIDE LAYOUT (THICC MODE) === */
-/* * The default Memos layout is quite narrow (max-w-2xl).
- * This block forces the timeline to take up 95% of the screen width (up to 1200px).
- * Great for modern wide monitors.
- */
-.max-w-2xl, 
-.w-full.max-w-2xl {
+/* === 3. LAYOUT ADJUSTMENTS === */
+/* Increase the maximum width of the main container for better screen utilization on desktop */
+.max-w-2xl, .w-full.max-w-2xl {
   max-width: 1200px !important;
   width: 95% !important;
 }
 
-/* === SECTION 4: GLASSMORPHISM CARDS (NOTES) === */
-/* * Styling for the individual note cards.
- * Uses a semi-transparent dark background with a backdrop-blur effect.
- */
+/* === 4. CARD STYLING (Glassmorphism Effect) === */
+/* Apply blur and translucency to note cards */
 .bg-card {
-  /* Dark tint (60% opacity) */
   background-color: rgba(20, 20, 20, 0.6) !important;
-  
-  /* The "Glass" effect (blurs the wallpaper behind the note) */
   backdrop-filter: blur(25px) !important;
-  -webkit-backdrop-filter: blur(25px) !important;
+  -webkit-backdrop-filter: blur(25px) !important; /* Safari support */
   
-  /* Border and Shadow for better separation */
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
   border-radius: 16px !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
 }
 
-/* === SECTION 5: SIDEBAR & NAVIGATION === */
-/* * Styling for the left sidebar (menu, tags, usage bars).
- * Slightly darker than note cards for visual hierarchy.
- */
-aside, 
-.bg-sidebar {
+/* === 5. SIDEBAR STYLING === */
+/* Consistent glass effect for the navigation sidebar */
+aside, .bg-sidebar {
   background-color: rgba(10, 10, 10, 0.6) !important;
   backdrop-filter: blur(20px) !important;
   border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-/* === SECTION 6: TYPOGRAPHY ENHANCEMENTS === */
-/* * Ensures text remains readable regardless of the background image brightness.
- * Adds a subtle text shadow to all main text elements.
- */
+/* === 6. TYPOGRAPHY & READABILITY === */
+/* Enforce light text color and add subtle shadows for legibility on any background */
 .text-card-foreground, p, span, div, h1, h2, h3 {
-  color: #e0e0e0 !important; /* Off-white text */
-  text-shadow: 0 1px 2px rgba(0,0,0,0.8); /* Black shadow */
+  color: #e0e0e0 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
 }
 
-/* Link styling */
+/* Accent color for hyperlinks */
 a { 
   color: #4facfe !important; 
   text-decoration: none; 
 }
 
-/* === SECTION 7: SETTINGS PAGE FIX === */
-/* * The Settings page uses different containers than the main timeline.
- * We need to explicitly target them to prevent them from becoming invisible or unreadable.
- */
-.max-w-4xl, 
-.max-w-5xl, 
+/* === 7. SETTINGS & DIALOGS === */
+/* Ensure setting panels and containers are distinct and readable */
+.max-w-4xl, .max-w-5xl, 
 div[class*="grid-cols-"], 
 div.w-full.border.rounded-lg, 
-div.w-full.bg-surface {       
-  background-color: rgba(20, 20, 20, 0.8) !important; /* More opaque for settings */
+div.w-full.bg-surface {        
+  background-color: rgba(20, 20, 20, 0.8) !important;
   backdrop-filter: blur(35px) !important;
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
   border-radius: 16px !important;
 }
 
-/* Hover effect for buttons in the Settings sidebar */
+/* Interactive hover states for setting items */
 a.w-full.justify-start:hover {
     background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* === SECTION 8: CRITICAL UI FIXES (DROPDOWNS & MENUS) === */
-/* * "THE NUCLEAR OPTION" for Popups.
- * Memos v0.25 uses complex nesting for menus (Radix UI). 
- * Making them transparent often breaks visibility or causes stacking issues.
- * Solution: Force all dropdowns, dialogs, and selects to be solid black/opaque.
+/* === 8. UI COMPONENT OVERRIDES (Dropdowns, Popovers) === */
+/* * Force high-contrast opaque backgrounds for floating elements to prevent 
+ * z-index layering issues and improve accessibility.
  */
-
-.bg-popover, 
-.bg-muted,
+.bg-popover, .bg-muted,
 div[data-radix-popper-content-wrapper] > div,
 div[role="listbox"],
 ul[role="listbox"],
 div[role="menu"],
 div[role="dialog"],
-select, 
-option {
-  background-color: #0f0f0f !important; /* Deep black */
+select, option {
+  background-color: #0f0f0f !important;
   background: #0f0f0f !important;
   color: white !important;
   border: 1px solid #555 !important;
   opacity: 1 !important; 
-  z-index: 99999 !important; /* Ensure it floats above everything */
+  z-index: 99999 !important;
   box-shadow: 0 0 20px rgba(0,0,0,1) !important;
-  backdrop-filter: none !important; /* Disable blur to prevent rendering bugs */
+  backdrop-filter: none !important;
 }
 
-/* Menu items styling */
-div[role="option"], 
-div[role="menuitem"], 
-li {
+/* Dropdown item states */
+div[role="option"], div[role="menuitem"], li {
     background-color: transparent !important;
     color: #eeeeee !important;
     cursor: pointer;
 }
 
-/* Hover state for menu items */
-div[role="option"]:hover, 
-div[role="menuitem"]:hover, 
-li:hover {
+div[role="option"]:hover, div[role="menuitem"]:hover, li:hover {
     background-color: #333333 !important;
 }
 
-/* === SECTION 9: INPUT FIELDS === */
-/* Darken input fields and textareas for better contrast */
-input, 
-textarea, 
-.bg-secondary {
+/* Input fields styling */
+input, textarea, .bg-secondary {
   background-color: rgba(0, 0, 0, 0.7) !important;
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
   color: white !important;
+}
+
+/* === 9. CALENDAR WIDGET FIXES === */
+/* Ensure calendar dates remain visible against dark themes */
+
+/* Global text color for calendar elements */
+div[class*="calendar"] button, 
+.rdp-button_reset,
+.rdp-day {
+    color: #e0e0e0 !important;
+}
+
+/* Active/Selected date styling */
+button[aria-selected="true"],
+button[data-state="selected"],
+.rdp-day_selected,
+.rdp-day_selected:hover {
+    color: #ffffff !important;
+    
+    /* Target internal spans to ensure text color propagates */
+    & > * {
+        color: #ffffff !important;
+    }
+
+    background-color: rgba(79, 172, 254, 0.6) !important;
+    box-shadow: 0 0 10px rgba(79, 172, 254, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    font-weight: 900 !important;
+}
+
+/* Override utility classes that force dark text */
+.text-primary-foreground {
+    color: #ffffff !important;
+}
+
+/* === 10. AUTHENTICATION PAGE STYLING === */
+/* Enhance contrast for the Login/Sign-up interface */
+
+/* Main Auth Card */
+.w-full.max-w-md.bg-card {
+    background-color: rgba(15, 15, 15, 0.85) !important;
+    backdrop-filter: blur(50px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.9) !important;
+}
+
+/* Auth Input Fields */
+form input {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+    font-weight: 500 !important;
+}
+
+form input::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Primary Action Button */
+form button[type="submit"] {
+    background-color: #4facfe !important;
+    color: white !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold !important;
+}
+
+form button[type="submit"]:hover {
+    background-color: #00f2fe !important;
+    box-shadow: 0 0 20px rgba(79, 172, 254, 0.5) !important;
+}
+
+/* Link Styling */
+form + div a {
+    color: #4facfe !important;
+    text-decoration: underline;
+}
+
+/* === 11. FOOTER CONTROLS (Language & Theme) === */
+/* Stylize the floating controls at the bottom of the auth page */
+
+.flex.flex-row.items-center.justify-center.gap-2, 
+.flex.flex-row.items-center.justify-center.space-x-2 {
+    margin-top: 20px !important;
+}
+
+/* Button capsule styling */
+.flex.flex-row.items-center.justify-center.gap-2 > div,
+.flex.flex-row.items-center.justify-center.gap-2 > button,
+.flex.flex-row.items-center.justify-center.space-x-2 > div,
+.flex.flex-row.items-center.justify-center.space-x-2 > button {
+    background-color: rgba(15, 15, 15, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #e0e0e0 !important;
+    padding: 6px 16px !important;
+    border-radius: 20px !important;
+    font-size: 0.9rem !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5) !important;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Hover effects */
+.flex.flex-row.items-center.justify-center.gap-2 > div:hover,
+.flex.flex-row.items-center.justify-center.gap-2 > button:hover {
+    background-color: rgba(79, 172, 254, 0.2) !important;
+    border-color: #4facfe !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(79, 172, 254, 0.3) !important;
+    cursor: pointer;
 }
