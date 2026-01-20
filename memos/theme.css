@@ -242,3 +242,196 @@ form + div a {
     box-shadow: 0 6px 15px rgba(79, 172, 254, 0.3) !important;
     cursor: pointer;
 }
+
+/*
+ * 💖 SECTION 12: ENHANCED NOTIFICATIONS (GLASSMORPHISM) 💖
+ *
+ * Description:
+ * Custom styling for React Hot Toast notifications.
+ * 1. Style: "Dark Glass" — translucent dark background with heavy blur,
+ * matching the settings modal design (Zinc-900 @ 85% opacity).
+ * 2. Icons: Native colors preserved (green for success, red for error).
+ * Forced white coloring is disabled for SVGs.
+ * 3. Animation: Smooth entry with a slide effect.
+ *
+ * Current Mode: TOP-RIGHT CORNER (Slide Down).
+ * (See the bottom of this section for the Bottom-Right variant).
+ */
+
+/* === [ACTIVE] OPTION A: TOP-RIGHT + SLIDE DOWN === */
+
+/* 1. CONTAINER POSITIONING */
+div[data-rht-toaster] {
+    position: fixed !important;
+    
+    /* 📍 POSITION: TOP-RIGHT */
+    inset: 20px 20px auto auto !important; /* Top: 20px, Right: 20px */
+    top: 20px !important;
+    right: 20px !important;
+    bottom: auto !important;
+    left: auto !important;
+    
+    /* Reset default library transforms */
+    transform: none !important;
+    
+    /* Layout: Stack from Top to Bottom */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;     /* Align to right edge */
+    justify-content: flex-start !important; /* Start from top */
+    
+    /* Click-through wrapper (only capture clicks on toasts) */
+    pointer-events: none;
+    z-index: 999999 !important; /* Always on top */
+}
+
+/* 2. SPACING BETWEEN TOASTS */
+div[data-rht-toaster] > div {
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+    position: static !important;
+    inset: auto !important;
+    /* Margin bottom because stack grows downwards */
+    margin-bottom: 10px !important; 
+}
+
+/* 3. VISUAL STYLE (GLASS) + ANIMATION */
+div[data-rht-toaster] > div > div {
+    /* 🎨 BACKGROUND: Dark Zinc (Zinc-900) with 85% opacity */
+    background-color: rgba(24, 24, 27, 0.85) !important; 
+    
+    /* 🌫️ GLASS EFFECT: Heavy blur */
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    
+    /* Border & Shadow */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
+    
+    /* Text Color */
+    color: #e4e4e7 !important;
+    
+    /* Sizing */
+    width: fit-content !important;
+    min-width: 240px !important;
+    pointer-events: auto !important; /* Re-enable clicks */
+    filter: none !important;
+    
+    /* 🎬 ANIMATION: Slide Down from Top */
+    animation: slideDown 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
+}
+
+/* 4. TEXT CONTENT */
+div[data-rht-toaster] > div > div * {
+    color: #e4e4e7 !important;
+    background: transparent !important;
+}
+
+/* 5. ICONS (NATIVE COLORS) */
+/* Important: Reset forced colors for SVGs. 
+ * Allows native icons (green checks, red crosses) to be visible. */
+div[data-rht-toaster] svg,
+div[data-rht-toaster] svg * {
+    color: unset !important;
+    fill: unset !important;
+    stroke: unset !important;
+    background: transparent !important;
+}
+
+/* 🎬 KEYFRAMES: SLIDE DOWN */
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        /* Start 50px higher */
+        transform: translateY(-50px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        /* Land in place */
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =================================================================
+ * 👇 [INACTIVE] OPTION B: BOTTOM-RIGHT + SLIDE UP 👇
+ * Uncomment the block below to switch position to Bottom-Right.
+ * (Make sure to comment out the Top-Right section above first).
+ * =================================================================
+ */
+
+/*
+div[data-rht-toaster] {
+    position: fixed !important;
+    
+    /* 📍 POSITION: BOTTOM-RIGHT */
+    inset: auto 20px 20px auto !important; 
+    top: auto !important;
+    left: auto !important;
+    right: 20px !important;
+    bottom: 20px !important;
+    
+    transform: none !important;
+    
+    /* Layout: Stack from Bottom to Top */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    
+    pointer-events: none;
+    z-index: 99999 !important;
+}
+
+div[data-rht-toaster] > div {
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+    position: static !important;
+    inset: auto !important;
+    margin-top: 10px !important; 
+}
+
+div[data-rht-toaster] > div > div {
+    background-color: rgba(24, 24, 27, 0.85) !important; 
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
+    color: #e4e4e7 !important;
+    width: fit-content !important;
+    min-width: 240px !important;
+    pointer-events: auto !important;
+    filter: none !important;
+    
+    /* 🎬 ANIMATION: Slide Up from Bottom */
+    animation: slideUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
+}
+
+div[data-rht-toaster] > div > div * {
+    color: #e4e4e7 !important;
+}
+
+div[data-rht-toaster] svg,
+div[data-rht-toaster] svg * {
+    color: unset !important;
+    fill: unset !important;
+    stroke: unset !important;
+    background: transparent !important;
+}
+
+/* 🎬 KEYFRAMES: SLIDE UP */
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        /* Start 50px lower */
+        transform: translateY(50px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+*/
